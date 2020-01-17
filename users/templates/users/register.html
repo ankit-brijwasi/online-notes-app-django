@@ -1,0 +1,54 @@
+{% extends "users/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-4">
+            <p class="mt-4 pt-4 h1">Join Us Now!</p>
+            <p class="" style="text-transform: capitalize">
+                register now to save, retrive, share, search notes.
+            </p>
+            <center>
+            <small class="text-muted">Already Have an account? 
+                <a href="{% url 'user-login' %}">Log In</a>
+            </small>
+            </center>
+        </div>
+        <div class="col-md-8">
+            <form method = "POST">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mt-4 h3 pt-4 pb-4">Join Us now</legend>
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            {{form.username|as_crispy_field}}
+                        </div>
+                        <div class="col-md-6">
+                            {{form.email|as_crispy_field}}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            {{form.firstname|as_crispy_field}}
+                        </div>
+                        <div class="col-md-6">
+                            {{form.lastname|as_crispy_field}}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-12">
+                            {{form.password1|as_crispy_field}}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-12">
+                            {{form.password2|as_crispy_field}}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-success btn-sm" value="Sign Up">
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+{% endblock content %}

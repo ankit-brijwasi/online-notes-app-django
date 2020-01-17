@@ -1,0 +1,19 @@
+{% extends "users/base.html" %}
+{% block content %}
+<div class="container">
+    <form method = "POST">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mt-4 h3 pt-4">Delete The Entry?</legend>
+            <h5>Are you sure to delete <strong>"{{object.title}}"</strong> ?</h5>
+            <p class="text-mutes">
+                <strong>Note:</strong> This action can't be reversed once you press the delete button all the information about the note will be permanently removed!
+            </p>
+            <div class="form-group h6">
+                <input type="submit" class="btn btn-outline-danger btn-sm" value="Yes, Delete">
+                <a href="{% url 'home' %}" class="btn btn-info btn-sm">Cancel</a>
+            </div>
+        </fieldset>
+    </form>
+</div>
+{% endblock %}

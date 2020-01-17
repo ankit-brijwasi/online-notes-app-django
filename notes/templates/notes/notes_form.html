@@ -1,0 +1,30 @@
+{% extends "users/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container mt-4 p-2">
+    <form method = "POST" enctype="multipart/form-data" class="p-4 border shadow-sm">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="text-center"><u>Notes Form</u></legend>
+            <div class="form-row">
+            	<div class="col-md-7 mx-auto">
+		            {{form.title | as_crispy_field}}            		
+            	</div>
+            </div>
+            <div class="form-row">
+            	<div class="col-md-7 mx-auto">
+		            {{form.body | as_crispy_field}}
+		            <div class="clearfix">
+		            	<div class="float-right">
+		            		Max Length: 500
+		            	</div>
+		            </div>       		
+            	</div>
+            </div><center>
+            <div class="form-group">
+                <input type="submit" class="btn btn-success" value="Save">
+            </div></center>
+        </fieldset>
+    </form>
+</div>
+{% endblock %}

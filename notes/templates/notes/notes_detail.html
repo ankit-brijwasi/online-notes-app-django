@@ -1,0 +1,32 @@
+{% extends "users/base.html" %}
+{% block content %}
+<div class="container-fluid mt-4">
+    <p class="h1 text-center"> <u> Notes Description Page </u></p>
+    <div class="col-md-7 input-group mx-auto m-2 mt-4">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Title</span>
+        </div>
+        <input type="text" value='{{object.title}}' class="form-control" disabled>
+    </div>
+    <div class="col-md-7 input-group mx-auto m-2 mt-4">
+        <div class="input-group-prepend">
+            <span class="input-group-text">
+                <i class="fas fa-clock"></i>
+            </span>
+        </div>
+        <input class="form-control" value='Last Modified On {{object.last_modified|date:"F d, Y"}}' disabled>
+    </div>
+    <div class="col-md-7 input-group mx-auto m-2 mt-4">
+        <div class="input-group-prepend">
+            <span class="input-group-text">
+                <i class="far fa-edit"></i>
+            </span>
+        </div>
+        <input class="form-control" value='Created On {{object.created_on|date:"F d, Y"}}' disabled>
+    </div>
+    <div class="col-md-7 mx-auto m-2 mt-4">
+        <p><strong class="border-bottom">Full Description-</strong></p>
+        {{object.body|linebreaks }}        
+    </div>
+</div>
+{% endblock %}

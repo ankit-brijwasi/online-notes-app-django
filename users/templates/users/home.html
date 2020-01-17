@@ -1,0 +1,39 @@
+{% extends "users/base.html" %}
+{% block content %}
+{% if messages %}
+{% for message in messages %}
+    <div class="alert alert-{{message.tags}} alert-dismissible" style="margin-top: 30px">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        {{ message }}
+    </div>
+{% endfor %}
+{% endif %}
+    <div class="container p-2">
+        <p class="h2 text-center" style="margin-bottom: -0.1em"><u>Your Recent Notes</u></p>
+        <center><a href="{% url 'create-notes' %}"><i class="fas fa-plus-circle"></i> Create New</a></center>
+        {% for n in notes|dictsortreversed:"created_on" %}
+        <div class="card shadow-sm mb-2">
+            <div class="card-header">
+                <kbd>#{{forloop.counter}}</kbd> {{n.title}}
+                <mark><small>Created On: {{n.created_on|date:"F d, Y"}}</small></mark>
+            </div>
+            <div class="card-body">
+                <p style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;margin-bottom: 0.1em">
+                    {{n.body}}
+                </p>
+                <kbd>Last Modified: {{n.last_modified|date:"F d, Y"}}</kbd><br>
+                <div class="mt-1">
+                <a href="{% url 'view-specific' n.id %}" class="btn btn-success btn-sm">View</a>
+                <a href="{% url 'update-notes' n.id %}" class="btn btn-info btn-sm">Update</a>
+                <a href="{% url 'delete-notes' n.id %}" class="btn btn-danger btn-sm">Delete</a></div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="card mt-4 shadow-sm">
+            <div class="card-body text-center">
+                <p>You have not created any notes</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock content %}

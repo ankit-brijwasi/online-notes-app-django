@@ -1,0 +1,22 @@
+{% extends 'users/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<form method = "POST">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom pt-4 pb-4 h2">Log In</legend>
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{message.tags}}">{{message}}</div>
+                {% endfor %}
+            {% endif %}
+            {{form | crispy}}
+            <div class="form-group">
+                <input type="submit" class="btn btn-outline-success" value="Log In">
+            </div>
+            <small class="text-muted">Didn't have an account? 
+                <a href="{% url 'user-register' %}">Sign Up</a>
+            </small>
+        </fieldset>
+    </form>
+{% endblock content %}

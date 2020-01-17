@@ -1,0 +1,67 @@
+{% extends "users/base.html" %}
+{% block content %}
+<div class="container mt-2">
+	<p class="text-center h2"><u>All Notes</u></p>
+	{% for notes in object_list %}
+	<div class="card shadow-sm">
+		<div class="card-header">
+			<kbd>#{{forloop.revcounter}}</kbd> {{notes.title}}
+			<mark><small>Created On: {{notes.created_on|date:"F d, Y"}}</small></mark>
+		</div>
+		<div class="card-body">
+			<p style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;margin-bottom: 0.1em">
+				{{notes.body}}
+			</p>
+			<kbd>Last Modified: {{notes.last_modified|date:"F d, Y"}}</kbd><br>
+			<div class="mt-1">
+			<a href="{% url 'view-specific' notes.id %}" class="btn btn-success btn-sm">View</a>
+			<a href="{% url 'update-notes' notes.id %}" class="btn btn-info btn-sm">Update</a>
+			<a href="{% url 'delete-notes' notes.id %}" class="btn btn-danger btn-sm">Delete</a></div>
+		</div>
+	</div>
+	{% empty %}
+	<div class="card mt-4 shadow-sm">
+		<div class="card-body text-center">
+			<p>You have not created any notes</p>
+		</div>
+	</div>
+	{% endfor %}
+	{% if is_paginated %}
+	<ul class="pagination mx-auto pt-4" style="width: 180px">
+		{% if page_obj.has_previous %}
+	    <li class="page-item">
+	      	<a class="page-link" href="?page=1">&laquo;</a>
+	    </li>
+	    {% else %}
+	    <li class="page-item disabled">
+	      	<a class="page-link" href="?page=1">&laquo;</a>
+	    </li>
+	    {% endif %}
+
+
+	    {% for num in page_obj.paginator.page_range %}
+    	{% if page_obj.number == num %}
+		<li class="page-item active">
+		  	<a class="page-link" href="?page={{ num }}">{{ num }}</a>
+		</li>
+		{% elif num > page_obj.number|add:"-3" and num < page_obj.number|add:"+3" %}
+		<li class="page-item">
+		  	<a class="page-link" href="?page={{ num }}">{{ num }}</a>
+		</li>
+    	{% endif %}
+	    {% endfor %}
+
+
+		{% if page_obj.has_next %}
+	    <li class="page-item">
+	      	<a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a>
+	    </li>
+	    {% else %}
+	    <li class="page-item disabled">
+	      	<a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a>
+	    </li>
+	    {% endif %}
+	</ul>
+	{% endif %}
+</div>
+{% endblock %}
